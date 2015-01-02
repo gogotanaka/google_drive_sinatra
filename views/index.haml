@@ -1,0 +1,11 @@
+%html
+  %head
+    %title Google Docs Spreadsheet
+  %body
+    .container
+      %h2
+        Create Google Docs Spreadsheet
+ 
+      %div
+        %form{:name => "spreadsheet", :id => "spreadsheet", :action => "/login/", :method => "post", :enctype => "text/plain"}
+          %input{:type => "submit", :value => "Authorise Google Account", :class => "button"}

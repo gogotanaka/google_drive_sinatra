@@ -1,0 +1,27 @@
+%h1= @venue["VenueName"]
+%p= @venue["VenueDescription"]
+
+%table
+  %thead
+    %th Space name
+    %th.long Description
+    %th reception
+    %th banquet
+    %th theater
+    %th boardroom
+    %th classroom
+    %th Size
+    %th Heigh
+  %tbody
+    - @spaces.each do |space|
+      %tr
+        - space[2..-1].each do |val|
+          %td= val
+
+:sass
+  td
+    width: 150px
+    border: 1px solid #ddd
+    text-align: center
+    &.long
+      width: 400px

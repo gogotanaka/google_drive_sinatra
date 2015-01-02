@@ -1,0 +1,20 @@
+source 'https://rubygems.org'
+
+ruby '2.2.0'
+gem 'sinatra'
+
+# Assets
+gem 'haml'
+gem 'sass'
+gem 'coffee-script'
+
+gem "google_drive"
+gem 'json'
+
+group :development do
+  gem 'foreman'
+  gem 'heroku'
+  gem 'pry'
+  gem 'pry-remote'
+end
+
