@@ -18,10 +18,15 @@ get '/' do
   haml :index
 end
 
-get '/show/:sheet/:column' do
+get '/show/*/:column' do
   return redirect '/' unless session[:oauth_token] && $worksheets
 
-  @venue, @spaces = get_sheet(params[:sheet].to_i, params[:column].to_i)
+  sheet_num = case params[:splat].first
+  when 'van' then 1
+  end
+
+  $debug = google_drive_session = GoogleDrive.login_with_oauth(session[:oauth_token])
+  @venue, @spaces = get_sheet(sheet_num, params[:column].to_i)
   haml :show
 end
 
@@ -29,8 +34,8 @@ get '/json/:sheet/:column' do
   content_type :json
   @venue, @spaces = get_sheet(params[:sheet].to_i, params[:column].to_i)
   ::JSON.pretty_generate(
-    [$venue_table.keys, @venue.ary].transpose.to_h.merge({
-      spaces: @spaces.map { |e| [$space_table.keys, e].transpose.to_h }
+    [$venue_table.keys, @venue.ary[0..47]].transpose.to_h.merge({
+      spaces: @spaces[0..12].map { |e| [$space_table.keys, e].transpose.to_h }
     })
   )
 end
@@ -69,7 +74,6 @@ get '/oauth2callback' do
       spaces: google_drive_session.spreadsheet_by_key(space_key).worksheets.map { |e| VenueSpaceSheet.new(e) }
     }
   end
-
   redirect '/'
 end
 

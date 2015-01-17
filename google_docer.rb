@@ -45,23 +45,23 @@ $venue_table = {
   "Parking"                   => 44,
   "FullKitchen"               => 45,
   "Decor"                     => 46,
-  "Entertainment"             => 47,
+  "MusicEntertainment"        => 47,
   "SleepingRooms"             => 48,
 }
 
 $space_table = {
-  "VenueId"          => 1,     
-  "VenueName"        => 2,      
-  "SpaceId"          => 3,             
-  "SpaceName"        => 4,               
-  "SpaceDescription" => 5,                      
-  "Reception"        => 6,               
-  "Banquet"          => 7,             
-  "Theater"          => 8,             
-  "Classroom"        => 9,               
-  "Boardroom"        => 10,               
-  "Size"             => 11,          
-  "Height"           => 12,            
+  "VenueId"          => 1,
+  "VenueName"        => 2,
+  "SpaceId"          => 3,
+  "SpaceName"        => 4,
+  "SpaceDescription" => 5,
+  "Reception"        => 6,
+  "Banquet"          => 7,
+  "Theater"          => 8,
+  "Classroom"        => 9,
+  "Boardroom"        => 10,
+  "Size"             => 11,
+  "Height"           => 12,
   "Privacy"          => 13,
 }
 
@@ -78,6 +78,10 @@ class SheetBase
 
   def []=(i,j,v)
     @sheet[i,j] = v
+  end
+
+  def col(num)
+    @sheet.rows.map { |row| row[num] }
   end
 
   def save
@@ -113,3 +117,49 @@ class Venue
     @ary[$venue_table[attr]-1]
   end
 end
+# sh = $debug.spreadsheet_by_key "1Bzlib4utrGAB1wi1hv_H75zysJ4BIpZ0HO4uIF8HoXg"
+# sh = sh.worksheets.map { |e| VenueSheet.new(e) }.first
+# cols = sh.col(50)
+# sh.col(13).each.with_index do |e, i|
+#   sh[i+1, 71] = if e == ""
+#                 cols[i]
+#               else
+#                 e
+#               end
+# end
+#
+#
+# cols = sh.col(56)
+# sh.col(11).each.with_index do |e, i|
+#   sh[i+1, 71] = if e == ""
+#                 cols[i]
+#               else
+#                 e
+#               end
+# end
+#
+# cols = sh.col(57)
+# sh.col(43).each.with_index do |e, i|
+#   sh[i+1, 71] = if e == ""
+#                 cols[i] == "" ? "" : "Yes"
+#               else
+#                 e
+#               end
+# end
+#
+# cols = sh.col(59).map { |e| !(["DJ", "Live", "Karaoke"] & e.split(", ")).empty? ? "Yes" : "" }
+# cols.each.with_index do |e, i|
+#   sh[i+1, 71] = e
+# end
+#
+# # good for
+#  sh.col(67).map {|e| e.split(", ").map{|e2| table[e2]}.compact.join(", ") }.each.with_index do |e, i|
+#    sh[i+1, 71] = e
+#  end
+#
+#
+# Breakfast
+# Breakfast, Lunch
+# Lunch
+# Dinner
+# Break, Appetizers

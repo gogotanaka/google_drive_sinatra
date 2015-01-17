@@ -18,6 +18,12 @@
         - space[2..-1].each do |val|
           %td= val
 
+%table
+  - $venue_table.keys[2..-1].each do |v|
+    %tr
+      %td= v
+      %td= @venue[v]
+
 :sass
   td
     width: 150px
