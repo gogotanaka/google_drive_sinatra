@@ -61,8 +61,7 @@ $space_table = {
   "Classroom"        => 9,
   "Boardroom"        => 10,
   "Size"             => 11,
-  "Height"           => 12,
-  "Privacy"          => 13,
+  "Height"           => 12
 }
 
 class SheetBase
