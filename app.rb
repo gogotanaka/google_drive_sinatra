@@ -35,7 +35,7 @@ get '/json/:sheet/:column' do
   @venue, @spaces = get_sheet(params[:sheet].to_i, params[:column].to_i)
   ::JSON.pretty_generate(
     [$venue_table.keys, @venue.ary[0..47]].transpose.to_h.merge({
-      spaces: @spaces[0..12].map { |e| [$space_table.keys, e].transpose.to_h }
+      spaces: @spaces.map {|e| e[0..11] }.map { |e| [$space_table.keys, e].transpose.to_h }
     })
   )
 end
