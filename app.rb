@@ -9,6 +9,7 @@ require "google/api_client"
 require "google_drive"
 
 require './google_docer'
+require './json_decorator'
 
 Bundler.require(:default, :development)
 
@@ -35,6 +36,8 @@ get '/json/:sheet/:column' do
   @venue, @spaces = get_sheet(params[:sheet].to_i, params[:column].to_i)
   ::JSON.pretty_generate(
     [$venue_table.keys, @venue.ary[0..47]].transpose.to_h.merge({
+      latlng: latlng,
+      s3_imgs: s3_imgs,
       spaces: @spaces.map {|e| e[0..11] }.map { |e| [$space_table.keys, e].transpose.to_h }
     })
   )
