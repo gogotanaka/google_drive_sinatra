@@ -23,9 +23,11 @@ get '/show/*/:column' do
 
   sheet_num = case params[:splat].first
   when 'van' then 1
+  when 'sf' then 2
   end
 
-  $debug = google_drive_session = GoogleDrive.login_with_oauth(session[:oauth_token])
+  google_drive_session = GoogleDrive.login_with_oauth(session[:oauth_token])
+  $debug = google_drive_session
   @venue, @spaces = get_sheet(sheet_num, params[:column].to_i)
   haml :show
 end
