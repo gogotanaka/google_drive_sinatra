@@ -51,19 +51,18 @@ $venue_table = {
 
 $space_table = {
   "VenueId"          => 1,
-  "VenueName"        => 2,
-  "SpaceId"          => 3,
-  "SpaceName"        => 4,
-  "SpaceDescription" => 5,
-  "Reception"        => 6,
-  "Banquet"          => 7,
-  "Theater"          => 8,
-  "Classroom"        => 9,
-  "Boardroom"        => 10,
-  "Size"             => 11,
-  "Height"           => 12
+  "SpaceId"          => 2,
+  "SpaceName"        => 3,
+  "SpaceDescription" => 4,
+  "Reception"        => 5,
+  "Banquet"          => 6,
+  "Theater"          => 7,
+  "Classroom"        => 8,
+  "Boardroom"        => 9,
+  "Size"             => 10,
+  "Height"           => 11,
+  "Privacy"          => 12,
 }
-
 class SheetBase
   attr_accessor :sheet
 

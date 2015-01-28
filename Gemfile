@@ -10,6 +10,8 @@ gem 'coffee-script'
 
 gem "google_drive"
 gem 'json'
+gem 'gogo_maps'
+gem "aws-sdk"
 
 group :development do
   gem 'foreman'
