@@ -14,7 +14,6 @@ gem 'gogo_maps'
 gem "aws-sdk"
 
 group :development do
-  gem 'foreman'
   gem 'heroku'
   gem 'pry'
   gem 'pry-remote'
