@@ -46,8 +46,32 @@ class App < Sinatra::Base
   end
 
   def get_sheet(sheet_num, col_num)
-    venues = $worksheets[:venues][sheet_num]
-    spaces = $worksheets[:spaces][sheet_num]
+    begin
+      venues = $worksheets[:venues][sheet_num]
+      spaces = $worksheets[:spaces][sheet_num]
+    rescue
+      begin
+        venues = $worksheets[:venues][sheet_num]
+        spaces = $worksheets[:spaces][sheet_num]
+      rescue
+        begin
+          venues = $worksheets[:venues][sheet_num]
+          spaces = $worksheets[:spaces][sheet_num]
+        rescue
+          begin
+            venues = $worksheets[:venues][sheet_num]
+            spaces = $worksheets[:spaces][sheet_num]
+          rescue
+            begin
+              venues = $worksheets[:venues][sheet_num]
+              spaces = $worksheets[:spaces][sheet_num]
+            rescue
+            end
+          end
+        end
+      end
+    end
+
 
     [
       Venue.new(venues.find("VenueId", col_num)),
