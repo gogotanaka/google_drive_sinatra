@@ -39,7 +39,6 @@ get '/json/:sheet/:column' do
   ::JSON.pretty_generate(
     [$venue_table.keys, @venue.ary[0..47]].transpose.to_h.merge({
       latlng: latlng,
-      s3_imgs: s3_imgs,
       spaces: @spaces.map {|e| e[0..11] }.map { |e| [$space_table.keys, e].transpose.to_h }
     })
   )
@@ -48,7 +47,6 @@ end
 def get_sheet(sheet_num, col_num)
   venues = $worksheets[:venues][sheet_num]
   spaces = $worksheets[:spaces][sheet_num]
-
 
   [
     Venue.new(venues.find("VenueId", col_num)),
