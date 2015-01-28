@@ -6,7 +6,6 @@ s3 = AWS::S3.new(
 
 $bucket = s3.buckets['venuedb']
 
-
 module HashDecorator
   def venue_types
     @venue["VenueType"].split(", ").map { |e| @tbl[e]  }.uniq
