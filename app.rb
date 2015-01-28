@@ -2,8 +2,8 @@ require 'bundler/setup'
 
 require 'sinatra/base'
 require 'haml'
-require 'sass'
-require 'coffee-script'
+# require 'sass'
+# require 'coffee-script'
 
 require "google/api_client"
 require "google_drive"
@@ -11,7 +11,7 @@ require "google_drive"
 require './google_docer'
 require './json_decorator'
 
-Bundler.require(:default, :development)
+# Bundler.require(:default, :development)
 
 class App < Sinatra::Base
   enable :sessions

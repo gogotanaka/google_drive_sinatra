@@ -19,3 +19,4 @@ group :development do
   gem 'pry-remote'
 end
 
+gem "rack-timeout"
