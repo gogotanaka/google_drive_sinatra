@@ -35,6 +35,19 @@ class App < Sinatra::Base
   end
 
   get '/json/:sheet/:column' do
+
+if $worksheets.nil?
+      google_drive_session = GoogleDrive.login_with_oauth(session[:oauth_token])
+      venue_key = "1Guy0IPpwXOt_LzIyJS383t8cRYdQy1U26zdeMNqQYk0"
+      space_key = "1JLHYqAMyXN3b8qhCsy9uBoVDYjggGw74OJE-96ZuJxs"
+
+      $worksheets = {
+        venues: google_drive_session.spreadsheet_by_key(venue_key).worksheets.map { |e| VenueSheet.new(e) } ,
+        spaces: google_drive_session.spreadsheet_by_key(space_key).worksheets.map { |e| VenueSpaceSheet.new(e) }
+      }
+    end
+
+
     content_type :json
     @venue, @spaces = get_sheet(params[:sheet].to_i, params[:column].to_i)
     ::JSON.pretty_generate(
@@ -46,32 +59,8 @@ class App < Sinatra::Base
   end
 
   def get_sheet(sheet_num, col_num)
-    begin
-      venues = $worksheets[:venues][sheet_num]
-      spaces = $worksheets[:spaces][sheet_num]
-    rescue
-      begin
-        venues = $worksheets[:venues][sheet_num]
-        spaces = $worksheets[:spaces][sheet_num]
-      rescue
-        begin
-          venues = $worksheets[:venues][sheet_num]
-          spaces = $worksheets[:spaces][sheet_num]
-        rescue
-          begin
-            venues = $worksheets[:venues][sheet_num]
-            spaces = $worksheets[:spaces][sheet_num]
-          rescue
-            begin
-              venues = $worksheets[:venues][sheet_num]
-              spaces = $worksheets[:spaces][sheet_num]
-            rescue
-            end
-          end
-        end
-      end
-    end
-
+    venues = $worksheets[:venues][sheet_num]
+    spaces = $worksheets[:spaces][sheet_num]
 
     [
       Venue.new(venues.find("VenueId", col_num)),
@@ -92,16 +81,7 @@ class App < Sinatra::Base
 
     session[:oauth_token] = client.authorization.access_token
 
-    if $worksheets.nil?
-      google_drive_session = GoogleDrive.login_with_oauth(session[:oauth_token])
-      venue_key = "1Guy0IPpwXOt_LzIyJS383t8cRYdQy1U26zdeMNqQYk0"
-      space_key = "1JLHYqAMyXN3b8qhCsy9uBoVDYjggGw74OJE-96ZuJxs"
 
-      $worksheets = {
-        venues: google_drive_session.spreadsheet_by_key(venue_key).worksheets.map { |e| VenueSheet.new(e) } ,
-        spaces: google_drive_session.spreadsheet_by_key(space_key).worksheets.map { |e| VenueSpaceSheet.new(e) }
-      }
-    end
     redirect '/'
   end
 
