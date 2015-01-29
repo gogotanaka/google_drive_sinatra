@@ -36,7 +36,7 @@ class App < Sinatra::Base
 
   get '/json/:sheet/:column' do
 
-if $worksheets.nil?
+    if $worksheets.nil?
       google_drive_session = GoogleDrive.login_with_oauth(session[:oauth_token])
       venue_key = "1Guy0IPpwXOt_LzIyJS383t8cRYdQy1U26zdeMNqQYk0"
       space_key = "1JLHYqAMyXN3b8qhCsy9uBoVDYjggGw74OJE-96ZuJxs"
@@ -46,7 +46,6 @@ if $worksheets.nil?
         spaces: google_drive_session.spreadsheet_by_key(space_key).worksheets.map { |e| VenueSpaceSheet.new(e) }
       }
     end
-
 
     content_type :json
     @venue, @spaces = get_sheet(params[:sheet].to_i, params[:column].to_i)
