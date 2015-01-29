@@ -11,6 +11,9 @@ require "google_drive"
 require './google_docer'
 require './json_decorator'
 
+require 'pry-remote'
+require 'pry'
+
 # Bundler.require(:default, :development)
 
 class App < Sinatra::Base
@@ -56,6 +59,14 @@ class App < Sinatra::Base
       })
     )
   end
+
+  get '/json_tmp/:sheet/:column' do
+    content_type :json
+    ::JSON.pretty_generate(
+      eval File.read("./jsons/#{params[:column]}.string")
+    )
+  end
+
 
   def get_sheet(sheet_num, col_num)
     venues = $worksheets[:venues][sheet_num]
