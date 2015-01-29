@@ -11,9 +11,6 @@ require "google_drive"
 require './google_docer'
 require './json_decorator'
 
-require 'pry-remote'
-require 'pry'
-
 # Bundler.require(:default, :development)
 
 class App < Sinatra::Base
