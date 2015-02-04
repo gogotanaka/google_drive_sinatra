@@ -1,8 +1,10 @@
 require 'bundler/setup'
 require "google/api_client"
 require "google_drive"
-require './google_docer'
+require './json_decorator'
 require 'pry'
+
+require 'gogo_maps'
 
 task :dump do
   sheet_num = 1
@@ -22,7 +24,14 @@ task :dump do
   venues.rows[1..-1].each.with_index(1) do |venue, i|
     venue_id = venue[0]
     venue_spaces = spaces.rows.select { |id, *_| id == venue_id }
+
+    latlng = latlng(
+      venue[venue_header.index("Address")],
+      venue[venue_header.index("City")],
+      venue[venue_header.index("PostalCode")]
+    )
     hash = [venue_header, venue].transpose.to_h.merge({
+      latlng: latlng,
       spaces: venue_spaces.map { |space| [space_header, space].transpose.to_h }
     })
     File.open("./jsons/#{venue_id}.string", 'w') { |d| d << hash.to_s }

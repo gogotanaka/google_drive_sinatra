@@ -11,11 +11,11 @@ module HashDecorator
     @venue["VenueType"].split(", ").map { |e| @tbl[e]  }.uniq
   end
 
-  def latlng
-    GogoMaps.get_latlng %|#{@venue["Address"]} #{@venue["City"]} #{@venue["PostalCode"]} canada|
+  def latlng(address, city, postal_code)
+    GogoMaps.get_latlng %|#{address} #{city} #{postal_code} canada|
   rescue
     begin
-      GogoMaps.get_latlng %|#{@venue["Address"]} #{@venue["PostalCode"]} canada|
+      GogoMaps.get_latlng %|#{address} #{postal_code} canada|
     rescue
       false
     end
