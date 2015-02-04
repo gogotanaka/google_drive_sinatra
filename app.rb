@@ -2,8 +2,6 @@ require 'bundler/setup'
 
 require 'sinatra/base'
 require 'haml'
-# require 'sass'
-# require 'coffee-script'
 
 require "google/api_client"
 require "google_drive"
@@ -11,7 +9,7 @@ require "google_drive"
 require './google_docer'
 require './json_decorator'
 
-# Bundler.require(:default, :development)
+Bundler.require(:default, :development)
 
 class App < Sinatra::Base
   enable :sessions
@@ -42,8 +40,8 @@ class App < Sinatra::Base
       space_key = "1JLHYqAMyXN3b8qhCsy9uBoVDYjggGw74OJE-96ZuJxs"
 
       $worksheets = {
-        venues: google_drive_session.spreadsheet_by_key(venue_key).worksheets.map { |e| VenueSheet.new(e) } ,
-        spaces: google_drive_session.spreadsheet_by_key(space_key).worksheets.map { |e| VenueSpaceSheet.new(e) }
+        venues: google_drive_session.spreadsheet_by_key(venue_key).worksheets[0].map { |e| VenueSheet.new(e) } ,
+        spaces: google_drive_session.spreadsheet_by_key(space_key).worksheets[0].map { |e| VenueSpaceSheet.new(e) }
       }
     end
 
