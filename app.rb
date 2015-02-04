@@ -40,8 +40,8 @@ class App < Sinatra::Base
       space_key = "1JLHYqAMyXN3b8qhCsy9uBoVDYjggGw74OJE-96ZuJxs"
 
       $worksheets = {
-        venues: google_drive_session.spreadsheet_by_key(venue_key).worksheets[0].map { |e| VenueSheet.new(e) } ,
-        spaces: google_drive_session.spreadsheet_by_key(space_key).worksheets[0].map { |e| VenueSpaceSheet.new(e) }
+        venues: google_drive_session.spreadsheet_by_key(venue_key).worksheets[0..0].map { |e| VenueSheet.new(e) } ,
+        spaces: google_drive_session.spreadsheet_by_key(space_key).worksheets[0..0].map { |e| VenueSpaceSheet.new(e) }
       }
     end
 
