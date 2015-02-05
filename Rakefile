@@ -8,7 +8,7 @@ require 'gogo_maps'
 
 # rake dump SESSION=ya29.EQHa3JamBE9InXdykHsW1Auxkpv26y_zbuIYIN1dLQutvSbhC2dDZin618fLhgDBalVC8rZd2S_WSQ
 task :dump do
-  sheet_num = 2
+  sheet_num = 1
   google_drive_session = GoogleDrive.login_with_oauth ENV['SESSION']
   venue_key = "1Guy0IPpwXOt_LzIyJS383t8cRYdQy1U26zdeMNqQYk0"
   space_key = "1JLHYqAMyXN3b8qhCsy9uBoVDYjggGw74OJE-96ZuJxs"
@@ -33,6 +33,7 @@ task :dump do
     )
     hash = [venue_header, venue].transpose.to_h.merge({
       latlng: latlng,
+      s3_imgs: s3_imgs(venue_id),
       spaces: venue_spaces.map { |space| [space_header, space].transpose.to_h }
     })
     File.open("./jsons/#{venue_id}.string", 'w') { |d| d << hash.to_s }

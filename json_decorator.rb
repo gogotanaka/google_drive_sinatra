@@ -22,7 +22,7 @@ module HashDecorator
   end
 
   def s3_imgs(id)
-    urls = $bucket.objects.with_prefix("img/#{id}/").map{|e|e.public_url.to_s}
+    urls = $bucket.objects.with_prefix("assets/#{id}/").map{|e|e.public_url.to_s}
     urls.select { |url| url.downcase =~ /jpg|jpeg|png/   }
   end
 end
