@@ -8,7 +8,7 @@ require 'gogo_maps'
 
 # rake dump SESSION=ya29.EQHa3JamBE9InXdykHsW1Auxkpv26y_zbuIYIN1dLQutvSbhC2dDZin618fLhgDBalVC8rZd2S_WSQ
 task :dump do
-  sheet_num = 1
+  sheet_num = 2
   google_drive_session = GoogleDrive.login_with_oauth ENV['SESSION']
   venue_key = "1Guy0IPpwXOt_LzIyJS383t8cRYdQy1U26zdeMNqQYk0"
   space_key = "1JLHYqAMyXN3b8qhCsy9uBoVDYjggGw74OJE-96ZuJxs"
@@ -22,7 +22,7 @@ task :dump do
   venue_header = venues.rows[0]
   space_header = spaces.rows[0]
 
-  venues.rows[1..-1].each.with_index(1) do |venue, i|
+  venues.rows[1200..-1].each.with_index(1) do |venue, i|
     venue_id = venue[0]
     venue_spaces = spaces.rows.select { |id, *_| id == venue_id }
 
